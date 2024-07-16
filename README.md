@@ -13,18 +13,18 @@ Este repositorio contiene los playbooks de Ansible necesarios para desplegar Git
 
 ## Configuración inicial
 
-1. Clona este repositorio en tu máquina local:
+1. Clonar este repositorio en la máquina local:
 
    ```bash
    git clone https://github.com/tu-usuario/ansible-gitea-deployment.git
    cd ansible-gitea-deployment
 
-2. Modifica el archivo hosts con la dirección IP del servidor y la ruta de la clave SSH:
+2. Modificar el archivo hosts con la dirección IP del servidor y la ruta de la clave SSH propia:
 
    ```bash
    [servers] gitea_server ansible_host=tu-ip-server ansible_user=ubuntu ansible_ssh_private_key_file=/ruta/a/tu/clave-aws.pem
 
-3. Asegúrate de tener Docker Compose instalado en el servidor. Si no está instalado, ejecuta el siguiente script en el servidor para instalarlo automáticamente:
+3. Asegúrarse de tener Docker Compose instalado en el servidor. Si no está instalado, ejecutar el siguiente script en el servidor para instalarlo automáticamente:
 
    ```bash
    #!/bin/bash
@@ -44,7 +44,7 @@ Este repositorio contiene los playbooks de Ansible necesarios para desplegar Git
    echo "Docker Compose ya está instalado. Continuando..."
    fi
 
-  ***Guarda este script como install_docker_compose.sh y ejecútalo en el servidor si es necesario:***
+  ***Guardar este script como install_docker_compose.sh y ejecútarlo en el servidor si es necesario:***
 
        sudo bash install_docker_compose.sh
 
@@ -52,7 +52,7 @@ Este repositorio contiene los playbooks de Ansible necesarios para desplegar Git
 
 ## Instalación y Despliegue
 
-1. Clona este repositorio:
+1. Clonar este repositorio:
 
    ```bash
    git clone https://github.com/tu_usuario/ansible_gitea_deployment.git
@@ -63,9 +63,9 @@ Este repositorio contiene los playbooks de Ansible necesarios para desplegar Git
    ```bash
    ./scripts/install_docker_compose.sh
 
-3. Modifica el archivo hosts con la IP y la clave de tu servidor.
+3. Modificar el archivo hosts con la IP y la clave de tu servidor.
 
-4. Ejecuta el playbook de Ansible:
+4. Ejecutar el playbook de Ansible:
 
    ```bash
    ansible-playbook -i hosts gitea_deployment.yml
@@ -84,4 +84,4 @@ Este proyecto se puede lanzar en cualquier distribución de Linux basada en Debi
 * Docker Compose
 * Traefik
 
-¡Espero que este proyecto te sea útil para el despliegue de Gitea!
+¡Espero que este proyecto le sea útil para el despliegue de Gitea!
