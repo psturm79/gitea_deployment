@@ -49,3 +49,39 @@ Este repositorio contiene los playbooks de Ansible necesarios para desplegar Git
        sudo bash install_docker_compose.sh
 
 4. Una vez instalado Docker Compose, se puede proceder con la ejecución del playbook de Ansible para desplegar Gitea y configurar Traefik como proxy.
+
+## Instalación y Despliegue
+
+1. Clona este repositorio:
+
+   ```bash
+   git clone https://github.com/tu_usuario/ansible_gitea_deployment.git
+   cd ansible_gitea_deployment
+
+2. Asegúrarse de tener Docker Compose instalado en el servidor. Si no está instalado, utilizar el script proporcionado para instalarlo.
+
+   ```bash
+   ./scripts/install_docker_compose.sh
+
+3. Modifica el archivo hosts con la IP y la clave de tu servidor.
+
+4. Ejecuta el playbook de Ansible:
+
+   ```bash
+   ansible-playbook -i hosts gitea_deployment.yml
+
+## Acceso a los Servicios
+
+   - Gitea: http://tu_servidor:3000
+   - Traefik Dashboard: http://tu_servidor:8080
+
+## Sobre el Proyecto
+
+Este proyecto se puede lanzar en cualquier distribución de Linux basada en Debian. Se han utilizado las siguientes tecnologías:
+
+* Ansible
+* Docker
+* Docker Compose
+* Traefik
+
+¡Espero que este proyecto te sea útil para el despliegue de Gitea!
