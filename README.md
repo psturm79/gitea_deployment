@@ -46,6 +46,6 @@ Este repositorio contiene los playbooks de Ansible necesarios para desplegar Git
 
 Guarda este script como install_docker_compose.sh y ejecútalo en el servidor si es necesario:
 
-       sudo bash install_docker_compose.sh
+    sudo bash install_docker_compose.sh
 
 4. Una vez instalado Docker Compose, puedes proceder con la ejecución del playbook Ansible para desplegar Gitea y configurar Traefik como proxy.
