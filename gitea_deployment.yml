@@ -1,0 +1,91 @@
+---
+- hosts: servers
+  become: yes
+
+  tasks:
+    - name: Ensure dependencies are installed
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install Docker
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+        update_cache: yes
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/v2.28.1/docker-compose-linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Install Traefik
+      copy:
+        dest: /srv/traefik/docker-compose.yml
+        content: |
+          version: "3.3"
+          services:
+            traefik:
+              image: "traefik:v2.5"
+              container_name: "traefik"
+              command:
+                - "--api.insecure=true"
+                - "--providers.docker=true"
+                - "--entrypoints.web.address=:80"
+              ports:
+                - "80:80"
+                - "8080:8080"
+              volumes:
+                - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
+    - name: Create Gitea directory
+      file:
+        path: /srv/gitea
+        state: directory
+
+    - name: Create Gitea Docker Compose file
+      copy:
+        dest: /srv/gitea/docker-compose.yml
+        content: |
+          version: "3"
+          services:
+            gitea:
+              image: gitea/gitea:latest
+              container_name: gitea
+              environment:
+                - USER_UID=1000
+                - USER_GID=1000
+              volumes:
+                - ./gitea:/data
+              ports:
+                - "3000:3000"
+                - "222:22"
+
+    - name: Start Traefik with Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: /srv/traefik
+
+    - name: Start Gitea with Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: /srv/gitea
